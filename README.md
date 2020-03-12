@@ -15,7 +15,9 @@ Get Docker:  [https://docs.docker.com/installation/](https://docs.docker.com/ins
 ## Quickstart
 
 ### Legislative Graph
-A set of scripts to easily download and import US legislative data into a Neo4j database. This is a work-in-progress, please submit an issue for any errors or feature requests.
+A set of scripts to easily download and import US legislative data into a Neo4j database. Please refer to these links if you want to explore this dataset:
+* https://www.lyonwj.com/2015/09/20/legis-graph-congressional-data-using-neo4j/
+* https://www.lyonwj.com/2015/10/11/congressional-pagerank/#importing-legis-graph
 
 ### Launch the dockers
 ```
