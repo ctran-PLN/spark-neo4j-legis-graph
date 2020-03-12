@@ -29,8 +29,9 @@ docker exec -it msds-graphdb bash
 http://localhost:7474/browser/
 
 ### Cypher example:
+```
 MATCH (s:State {code: "CA"})<-[:REPRESENTS]-(l:Legislator) WHERE has(l.wikipediaID)
 MATCH (l)-[:ELECTED_TO]->(b:Body)
 RETURN s,l,b LIMIT 10;
-
+```
 ![Cypher_query-1](gif/legis-1.gif)
