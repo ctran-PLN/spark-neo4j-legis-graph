@@ -12,36 +12,25 @@ The fundamental goal of this Docker image is to get you up and running as fast a
 
 Get Docker:  [https://docs.docker.com/installation/](https://docs.docker.com/installation/)
 
-### Installation
+## Quickstart
 
-To install **Spark Neo4j** on your machine, follow this install guide:
+### Legislative Graph
+A set of scripts to easily download and import US legislative data into a Neo4j database. This is a work-in-progress, please submit an issue for any errors or feature requests.
 
-* [Mac OSX](https://github.com/kbastani/spark-neo4j/wiki/Mac-OSX-Install-Guide)
-* [Linux](https://github.com/kbastani/spark-neo4j/wiki/Linux-Install-Guide)
+### Launch the dockers
+```
+docker-compose up
+# Once the docker is launched, on different Terminal
+docker exec -it msds-graphdb bash
+/var/lib/neo4j-community-2.2.3/bin/neo4j-shell < /var/lib/neo4j-community-2.2.3/legis-graph/quickstart/114/legis_graph_import_114.cypher
+```
 
-## Graph Analytics Engine
+### Launch Neo4j on browser
+http://localhost:7474/browser/
 
-This Docker image is an all-in-one graph processing solution combining **graph storage** and **graph processing** in a single platform.
+### Cypher example:
+MATCH (s:State {code: "CA"})<-[:REPRESENTS]-(l:Legislator) WHERE has(l.wikipediaID)
+MATCH (l)-[:ELECTED_TO]->(b:Body)
+RETURN s,l,b LIMIT 10;
 
-### Graph Storage
-
-A **Neo4j graph database** container provides an out of the box database management system with robust (fully ACID) graph data storage and query capabilities. This container configures Neo4j for high-performance OLTP use cases.
-
-### Graph Processing
-
-An **Apache Spark GraphX** container provides a single system that handles iterative graph computation and ETL from data sourced from Neo4j.
-
-### Closed-loop Data Processing
-
-The results of an analysis by the Apache Spark container are applied back to Neo4j. These results can be explored using Neo4j's powerful query capabilities to lookup graph metrics calculated by Spark.
-
-* PageRank
-* Closeness Centrality
-* Betweenness Centrality
-* Triangle Counting
-* Connected Components
-* Strongly Connected Components
-
-# License
-
-This library is licensed under the Apache License, Version 2.0.
+![Cypher_query-1](gif/legis-1.gif)
