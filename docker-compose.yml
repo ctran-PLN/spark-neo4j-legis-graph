@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  msds-hdfs:
+    image: sequenceiq/hadoop-docker:2.4.1
+    command: /etc/bootstrap.sh -d -bash
+  msds-mazerunner:
+    image: kbastani/neo4j-graph-analytics:1.1.0
+    links:
+     - msds-hdfs
+  msds-graphdb:
+    #image: kbastani/docker-neo4j:latest
+    build: .
+    container_name: msds-graphdb
+    ports:
+     - "7474:7474"
+     - "7687:7687"
+     - "1337:1337"
+    volumes:
+     - /opt/data
+    links:
+     - msds-mazerunner
+     - msds-hdfs
+    command: >
+     /etc/bootstrap.sh
+     && /var/lib/neo4j-community-2.2.3/bin/neo4j-shell < /var/lib/neo4j-community-2.2.3/legis-graph/quickstart/114/legis_graph_import_114.cypher
